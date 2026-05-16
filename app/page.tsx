@@ -114,6 +114,16 @@ export default function Home() {
       }
     }
 
+    // Parallax effect for hero gradient
+    const handleParallax = () => {
+      const heroGradient = document.getElementById('hero-gradient');
+      if (heroGradient) {
+        const scrolled = window.scrollY;
+        heroGradient.style.transform = `translateY(${scrolled * 0.3}px)`;
+      }
+    };
+    window.addEventListener('scroll', handleParallax);
+
     // Check saved preference
     const savedTheme = localStorage.getItem('theme');
     const heroGradient = document.getElementById('hero-gradient');
@@ -127,14 +137,38 @@ export default function Home() {
       }
     }
 
+    // Tilt effect for bento-cards
+    const cards = document.querySelectorAll('.bento-card');
+    cards.forEach(card => {
+      const cardEl = card as HTMLElement;
+      cardEl.addEventListener('mousemove', (e) => {
+        const rect = cardEl.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (centerY - y) / 10;
+        const rotateY = (x - centerX) / 10;
+        cardEl.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+      });
+      cardEl.addEventListener('mouseleave', () => {
+        cardEl.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+      });
+    });
+
     return () => {
       window.removeEventListener('scroll', updateActiveNav);
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleParallax);
       revealObserver.disconnect();
       if (heroSection) {
         const particles = heroSection.querySelectorAll('.particle');
         particles.forEach(p => p.remove());
       }
+      cards.forEach(card => {
+        const cardEl = card as HTMLElement;
+        cardEl.replaceWith(cardEl.cloneNode(true)); // Clean listeners
+      });
     };
   }, []);
 
@@ -311,6 +345,8 @@ export default function Home() {
 
       {/* ABOUT */}
       <section className="py-[120px] relative overflow-hidden reveal" id="about">
+        <div className="absolute top-20 right-10 w-32 h-32 rounded-full opacity-20 pointer-events-none parallax-float" style={{ background: "linear-gradient(135deg, #6c63ff, #00d4aa)" }}></div>
+        <div className="absolute bottom-20 left-5 w-20 h-20 rounded-full opacity-15 pointer-events-none parallax-float-slow" style={{ background: "linear-gradient(135deg, #00d4aa, #6c63ff)" }}></div>
         <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px]">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="flex justify-center">
@@ -444,10 +480,10 @@ export default function Home() {
 
             {/* ① SHAMO — FEATURED LARGE */}
             <div className="bento-card rounded-xl overflow-hidden group md:row-span-2 flex flex-col">
-              <div className="h-64 md:h-80 relative overflow-hidden flex-shrink-0" style={{ background: "linear-gradient(135deg, #1a1a2e 0%, #0d3b6e 50%, #16213e 100%)" }}>
+              <div className="h-64 md:h-80 relative overflow-hidden flex-shrink-0 project-image-container" style={{ background: "linear-gradient(135deg, #1a1a2e 0%, #0d3b6e 50%, #16213e 100%)" }}>
                 <div className="absolute" style={{ width: "220px", height: "220px", borderRadius: "50%", border: "2px solid rgba(0,212,170,0.2)", top: "-40px", left: "-40px" }}></div>
                 <div className="absolute" style={{ width: "150px", height: "150px", borderRadius: "50%", border: "2px solid rgba(0,212,170,0.15)", top: "20px", right: "-30px" }}></div>
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-center project-icon-placeholder">
                   <span className="material-symbols-outlined text-[#00d4aa]" style={{ fontSize: "72px", opacity: 0.25 }}>smartphone</span>
                 </div>
                 <div className="absolute top-4 left-4 z-10">
@@ -479,9 +515,9 @@ export default function Home() {
 
             {/* ② WEB TIKET ONLINE */}
             <div className="bento-card rounded-xl overflow-hidden group">
-              <div className="h-48 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)" }}>
+              <div className="h-48 relative overflow-hidden project-image-container" style={{ background: "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)" }}>
                 <div className="absolute" style={{ width: "160px", height: "160px", borderRadius: "50%", border: "1px solid rgba(108,99,255,0.25)", top: "-30px", right: "-30px" }}></div>
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-center project-icon-placeholder">
                   <span className="material-symbols-outlined text-[#6c63ff]" style={{ fontSize: "60px", opacity: 0.2 }}>confirmation_number</span>
                 </div>
                 <div className="absolute top-4 right-4 z-10">
@@ -507,9 +543,9 @@ export default function Home() {
 
             {/* ③ COWORKER */}
             <div className="bento-card rounded-xl overflow-hidden group">
-              <div className="h-48 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1a1a2e 0%, #2d1b69 50%, #11998e 100%)" }}>
+              <div className="h-48 relative overflow-hidden project-image-container" style={{ background: "linear-gradient(135deg, #1a1a2e 0%, #2d1b69 50%, #11998e 100%)" }}>
                 <div className="absolute" style={{ width: "180px", height: "180px", borderRadius: "50%", border: "1px solid rgba(0,212,170,0.2)", bottom: "-40px", right: "-40px" }}></div>
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-center project-icon-placeholder">
                   <span className="material-symbols-outlined text-[#00d4aa]" style={{ fontSize: "60px", opacity: 0.2 }}>groups</span>
                 </div>
                 <div className="absolute top-4 right-4 z-10">
@@ -536,9 +572,9 @@ export default function Home() {
             {/* ④ WEB PENGUMPULAN TUGAS — FULL WIDTH */}
             <div className="bento-card rounded-xl overflow-hidden group md:col-span-2">
               <div className="flex flex-col md:flex-row">
-                <div className="h-48 md:h-auto md:w-72 flex-shrink-0 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1a1a2e 0%, #3a1c71 40%, #d76d77 100%)" }}>
+                <div className="h-48 md:h-auto md:w-72 flex-shrink-0 relative overflow-hidden project-image-container" style={{ background: "linear-gradient(135deg, #1a1a2e 0%, #3a1c71 40%, #d76d77 100%)" }}>
                   <div className="absolute" style={{ width: "200px", height: "200px", borderRadius: "50%", border: "2px solid rgba(255,255,255,0.1)", top: "-60px", left: "-60px" }}></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center project-icon-placeholder">
                     <span className="material-symbols-outlined text-white" style={{ fontSize: "72px", opacity: 0.2 }}>assignment</span>
                   </div>
                   <div className="absolute top-4 left-4 z-10">
@@ -729,6 +765,8 @@ export default function Home() {
 
       {/* CONTACT */}
       <section className="py-[120px] reveal border-t relative overflow-hidden" id="contact" style={{ background: "rgba(12,14,18,0.8)", borderColor: "rgba(255,255,255,0.08)" }}>
+        <div className="absolute top-10 left-1/4 w-24 h-24 rounded-full opacity-10 pointer-events-none parallax-float" style={{ background: "linear-gradient(135deg, #6c63ff, #00d4aa)" }}></div>
+        <div className="absolute bottom-10 right-1/3 w-16 h-16 rounded-full opacity-15 pointer-events-none parallax-float-slow" style={{ background: "linear-gradient(135deg, #00d4aa, #6c63ff)" }}></div>
         <div className="absolute right-0 bottom-0 w-1/2 h-1/2 pointer-events-none" style={{ background: "radial-gradient(ellipse at bottom right, rgba(108,99,255,0.1) 0%, transparent 70%)" }}></div>
         <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px] relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-12">
