@@ -71,20 +71,19 @@ export default function Home() {
       (item as HTMLElement).style.transitionDelay = `${index * 0.2}s`;
     });
 
-    // Enhanced reveal observer
-    const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    // Enhanced reveal observer with lazy loading
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
-          // Add stagger effect to children
+          revealObserver.unobserve(entry.target);
           const children = entry.target.querySelectorAll('.stagger-item');
           children.forEach((child, i) => {
             setTimeout(() => child.classList.add('visible'), i * 150);
           });
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
     // Add particles to hero
@@ -153,6 +152,17 @@ export default function Home() {
     setIsMobileMenuOpen(false);
   };
 
+  const handleMobileNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    setTimeout(() => {
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   return (
     <>
       {/* NAV */}
@@ -198,12 +208,12 @@ export default function Home() {
       >
         <div className="flex flex-col h-full pt-20 px-6">
           <div className="flex flex-col gap-2">
-            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#about">About</a>
-            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#skills">Tech Stack</a>
-            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#experience">Background</a>
-            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#projects">Projects</a>
-            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#certifications">Certifications</a>
-            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#contact">Contact</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'about')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#about">About</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'skills')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#skills">Tech Stack</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'experience')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#experience">Background</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'projects')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#projects">Projects</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'certifications')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#certifications">Certifications</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'contact')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#contact">Contact</a>
           </div>
           <div className="mt-auto pb-8">
             <button onClick={() => { closeMobileMenu(); toggleTheme(); }} className="w-full py-4 rounded-lg flex items-center justify-center gap-2 text-[#6c63ff] hover:bg-[#6c63ff]/10 transition-all duration-300">
@@ -244,7 +254,7 @@ export default function Home() {
       </section>
 
       {/* ABOUT */}
-      <section className="py-[120px] relative overflow-hidden reveal active" id="about">
+      <section className="py-[120px] relative overflow-hidden reveal" id="about">
         <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px]">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="flex justify-center">
@@ -279,7 +289,7 @@ export default function Home() {
       </section>
 
       {/* SKILLS */}
-      <section className="py-[120px] reveal active" id="skills" style={{ background: "rgba(12,14,18,0.5)" }}>
+      <section className="py-[120px] reveal" id="skills" style={{ background: "rgba(12,14,18,0.5)" }}>
         <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px]">
           <h2 className="text-headline-lg text-on-surface mb-12 text-center"><span className="text-[#6c63ff]">/</span> Tech Stack</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -364,7 +374,7 @@ export default function Home() {
       </section>
 
       {/* PROJECTS */}
-      <section className="py-[120px] reveal active" id="projects">
+      <section className="py-[120px] reveal" id="projects">
         <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px]">
           <div className="flex justify-between items-end mb-12">
             <h2 className="text-headline-lg text-on-surface"><span className="text-[#6c63ff]">/</span> Featured Work</h2>
@@ -557,7 +567,7 @@ export default function Home() {
       </section>
 
       {/* EXPERIENCE & EDUCATION */}
-      <section className="py-[120px] reveal active" id="experience" style={{ background: "rgba(12,14,18,0.5)" }}>
+      <section className="py-[120px] reveal" id="experience" style={{ background: "rgba(12,14,18,0.5)" }}>
         <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px]">
           <div className="grid md:grid-cols-2 gap-16">
             {/* Experience */}
