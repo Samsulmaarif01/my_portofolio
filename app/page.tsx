@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     // Typing Animation - Loop every 5 seconds
@@ -41,6 +44,9 @@ export default function Home() {
       
       // Start typing after 0.5 second
       setTimeout(typeEffect, 500);
+
+      // Page load animation - Give it a bit more time for the spinner to be seen
+      setTimeout(() => setIsLoaded(true), 2000);
     }
 
     // Scroll Spy - Active navbar link
@@ -64,6 +70,14 @@ export default function Home() {
     };
     window.addEventListener('scroll', updateActiveNav);
     updateActiveNav(); // Initial check
+
+    // Scroll handling for navbar and scroll-to-top
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
 
     // Stagger animation for elements
     const staggerItems = document.querySelectorAll('.stagger-item');
@@ -115,6 +129,7 @@ export default function Home() {
 
     return () => {
       window.removeEventListener('scroll', updateActiveNav);
+      window.removeEventListener('scroll', handleScroll);
       revealObserver.disconnect();
       if (heroSection) {
         const particles = heroSection.querySelectorAll('.particle');
@@ -165,8 +180,49 @@ export default function Home() {
 
   return (
     <>
+      {/* Loading Screen */}
+      <div 
+        className={`fixed inset-0 z-[100] flex flex-col items-center justify-center transition-all duration-700 bg-[#0a0a0f] ${
+          isLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
+      >
+        <div className="relative">
+          {/* Logo Animation */}
+          <div className="text-display-hero text-6xl text-[#6c63ff] mb-8 animate-pulse nav-logo">SM</div>
+          
+          {/* Advanced Spinner */}
+          <div className="absolute inset-x-0 -bottom-4 flex justify-center">
+            <div className="flex gap-1.5">
+              <div className="w-2 h-2 rounded-full bg-[#6c63ff] animate-bounce" style={{ animationDelay: '0s' }}></div>
+              <div className="w-2 h-2 rounded-full bg-[#00d4aa] animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+              <div className="w-2 h-2 rounded-full bg-[#6c63ff] animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Loading Progress Text */}
+        <div className="mt-12 overflow-hidden w-48 h-0.5 bg-white/5 rounded-full relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#6c63ff] to-[#00d4aa] origin-left animate-loading-bar"></div>
+        </div>
+        <p className="mt-4 text-label-mono text-xs text-tertiary/50 tracking-[0.2em] uppercase">Initializing Portfolio</p>
+      </div>
+
+      <div className={`page-content ${isLoaded ? 'loaded' : ''}`}>
       {/* NAV */}
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-xl shadow-lg" style={{ background: "rgba(18,18,26,0.85)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+      <nav 
+        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+          isScrolled 
+            ? 'py-3 backdrop-blur-xl shadow-lg border-b border-white/5' 
+            : 'py-5 backdrop-blur-sm'
+        } group`}
+        style={{ 
+          background: isScrolled 
+            ? "rgba(18,18,26,0.8)" 
+            : "rgba(18,18,26,0.2)"
+        }}
+      >
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" 
+             style={{ background: "linear-gradient(90deg, transparent, rgba(108,99,255,0.03), transparent)" }}></div>
         <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px] flex justify-between items-center h-16">
           <div className="font-display-hero text-headline-md tracking-tighter nav-logo">SM</div>
           <div className="hidden md:flex gap-1 items-center nav-links">
@@ -753,6 +809,19 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className={`fixed bottom-6 right-6 w-12 h-12 rounded-full flex items-center justify-center text-[#6c63ff] transition-all duration-300 z-50 scroll-to-top ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+        style={{ background: "rgba(18,18,26,0.9)", border: "1px solid rgba(108,99,255,0.3)", boxShadow: "0 4px 20px rgba(108,99,255,0.2)" }}
+        aria-label="Scroll to top"
+      >
+        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>
+          keyboard_arrow_up
+        </span>
+      </button>
+      </div>
     </>
   );
 }

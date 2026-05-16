@@ -53,12 +53,12 @@
 
 ## Phase 4: Design Enhancements
 
-### 4.1 Scroll to Top Button
+### 4.1 Scroll to Top Button (completed)
 - Add floating scroll-to-top button
 - Appears after scrolling past hero section
 - Smooth scroll animation
 
-### 4.2 Page Load Animation
+### 4.2 Page Load Animation (completed)
 - Add loading screen/spinner
 - Fade in content after page loads
 - Stagger animations on initial load
