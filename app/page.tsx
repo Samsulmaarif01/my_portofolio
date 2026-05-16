@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Typing Animation - Loop every 5 seconds
@@ -144,11 +145,19 @@ export default function Home() {
     }
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <>
       {/* NAV */}
       <nav className="fixed top-0 w-full z-50 backdrop-blur-xl shadow-lg" style={{ background: "rgba(18,18,26,0.85)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-        <div className="max-w-[1280px] mx-auto px-[48px] flex justify-between items-center h-16">
+        <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px] flex justify-between items-center h-16">
           <div className="font-display-hero text-headline-md tracking-tighter nav-logo">SM</div>
           <div className="hidden md:flex gap-1 items-center nav-links">
             <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300" href="#about">About</a>
@@ -156,13 +165,56 @@ export default function Home() {
             <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300" href="#experience">Background</a>
             <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300" href="#contact">Contact</a>
           </div>
-          <button onClick={toggleTheme} className="w-10 h-10 rounded-full flex items-center justify-center text-[#6c63ff] hover:bg-[#6c63ff]/10 hover:scale-110 transition-all duration-300">
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>
-              {isDarkMode ? 'dark_mode' : 'light_mode'}
-            </span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={toggleTheme} className="w-10 h-10 rounded-full flex items-center justify-center text-[#6c63ff] hover:bg-[#6c63ff]/10 hover:scale-110 transition-all duration-300">
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>
+                {isDarkMode ? 'dark_mode' : 'light_mode'}
+              </span>
+            </button>
+            <button 
+              onClick={toggleMobileMenu}
+              className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-[#6c63ff] hover:bg-[#6c63ff]/10 transition-all duration-300"
+              aria-label="Toggle menu"
+              aria-expanded={isMobileMenuOpen}
+            >
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>
+                {isMobileMenuOpen ? 'close' : 'menu'}
+              </span>
+            </button>
+          </div>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <div 
+        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={closeMobileMenu}
+      />
+
+      {/* Mobile Menu Drawer */}
+      <div 
+        className={`fixed top-0 right-0 z-50 w-72 h-full md:hidden transition-transform duration-300 ease-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        style={{ background: "rgba(18,18,26,0.98)", borderLeft: "1px solid rgba(255,255,255,0.08)" }}
+      >
+        <div className="flex flex-col h-full pt-20 px-6">
+          <div className="flex flex-col gap-2">
+            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#about">About</a>
+            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#skills">Tech Stack</a>
+            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#experience">Background</a>
+            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#projects">Projects</a>
+            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#certifications">Certifications</a>
+            <a onClick={closeMobileMenu} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300" href="#contact">Contact</a>
+          </div>
+          <div className="mt-auto pb-8">
+            <button onClick={() => { closeMobileMenu(); toggleTheme(); }} className="w-full py-4 rounded-lg flex items-center justify-center gap-2 text-[#6c63ff] hover:bg-[#6c63ff]/10 transition-all duration-300">
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>
+                {isDarkMode ? 'dark_mode' : 'light_mode'}
+              </span>
+              <span className="text-label-mono">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* HERO */}
       <section id="hero-section" className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
@@ -180,11 +232,11 @@ export default function Home() {
           </h1>
           <p className="text-headline-md text-on-surface mb-4 animate-reveal-up">Building digital products that matter.</p>
           <p className="text-body-lg text-tertiary mb-12 animate-reveal-up" style={{ animationDelay: "0.3s" }}>Web Developer & Flutter Engineer based in Indonesia</p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a className="px-8 py-4 bg-[#6c63ff] hover:bg-[#5b54d6] text-white text-label-mono rounded transition-colors flex items-center gap-2 glow-pulse-hover" href="#projects" style={{ boxShadow: "0 0 20px rgba(108,99,255,0.15)" }} onMouseEnter={(e) => e.currentTarget.classList.add('glow-pulse')} onMouseLeave={(e) => e.currentTarget.classList.remove('glow-pulse')}>
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <a className="px-6 py-4 bg-[#6c63ff] hover:bg-[#5b54d6] text-white text-label-mono rounded transition-colors flex items-center justify-center gap-2 glow-pulse-hover w-full sm:w-auto" href="#projects" style={{ boxShadow: "0 0 20px rgba(108,99,255,0.15)" }} onMouseEnter={(e) => e.currentTarget.classList.add('glow-pulse')} onMouseLeave={(e) => e.currentTarget.classList.remove('glow-pulse')}>
               View My Work <span className="material-symbols-outlined text-sm">arrow_forward</span>
             </a>
-            <a className="px-8 py-4 border border-[#6c63ff] text-[#6c63ff] hover:bg-[#6c63ff]/10 text-label-mono rounded transition-colors flex items-center gap-2" href="#">
+            <a className="px-6 py-4 border border-[#6c63ff] text-[#6c63ff] hover:bg-[#6c63ff]/10 text-label-mono rounded transition-colors flex items-center justify-center gap-2 w-full sm:w-auto" href="#">
               Download CV <span className="material-symbols-outlined text-sm">download</span>
             </a>
           </div>
