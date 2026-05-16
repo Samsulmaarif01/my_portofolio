@@ -244,8 +244,8 @@ export default function Home() {
         {/* NAV */}
         <nav
           className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled
-              ? 'py-3 backdrop-blur-xl shadow-lg border-b border-white/5'
-              : 'py-5 backdrop-blur-sm'
+            ? 'py-3 backdrop-blur-xl shadow-lg border-b border-white/5'
+            : 'py-5 backdrop-blur-sm'
             } group`}
           style={{
             background: isScrolled
@@ -318,7 +318,7 @@ export default function Home() {
         <section id="hero-section" className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none" id="hero-gradient" style={{ background: "radial-gradient(ellipse at center, rgba(108,99,255,0.1) 0%, rgba(10,10,15,0.8) 60%, #0a0a0f 100%)" }}></div>
           <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px] text-center relative z-10 flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8">
               <div className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00d4aa] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00d4aa]"></span>
@@ -391,11 +391,14 @@ export default function Home() {
                   <h3 className="text-headline-md text-xl text-on-surface">Frontend</h3>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>HTML</span>
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>CSS</span>
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>JavaScript</span>
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>Tailwind CSS</span>
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>React.js</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">HTML</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">CSS</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">JavaScript</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Tailwind CSS</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Bootstrap</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Blade PHP</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Livewire </span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">React.js</span>
                 </div>
               </div>
               <div className="bento-card p-8 rounded-xl stagger-item">
@@ -406,8 +409,8 @@ export default function Home() {
                   <h3 className="text-headline-md text-xl text-on-surface">Mobile</h3>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#00d4aa] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>Flutter</span>
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#00d4aa] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>Dart</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#00d4aa] transition-all">Flutter</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#00d4aa] transition-all">Dart</span>
                 </div>
               </div>
               <div className="bento-card p-8 rounded-xl stagger-item">
@@ -418,8 +421,11 @@ export default function Home() {
                   <h3 className="text-headline-md text-xl text-on-surface">Backend</h3>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>PHP</span>
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>Laravel</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Laravel</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Node.js</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Firebase</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Supabase</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">AppWrite</span>
                 </div>
               </div>
               <div className="bento-card p-8 rounded-xl stagger-item">
@@ -430,7 +436,7 @@ export default function Home() {
                   <h3 className="text-headline-md text-xl text-on-surface">Database</h3>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#00d4aa] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>MySQL</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#00d4aa] transition-all">MySQL</span>
                 </div>
               </div>
               <div className="bento-card p-8 rounded-xl stagger-item">
@@ -441,9 +447,10 @@ export default function Home() {
                   <h3 className="text-headline-md text-xl text-on-surface">AI &amp; Tools</h3>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>Antigravity</span>
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>Claude</span>
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>Gemini</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Antigravity</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Opencode</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Claude</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#6c63ff] transition-all">Gemini</span>
                 </div>
               </div>
               <div className="bento-card p-8 rounded-xl stagger-item">
@@ -454,8 +461,8 @@ export default function Home() {
                   <h3 className="text-headline-md text-xl text-on-surface">DevOps</h3>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#00d4aa] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>Git</span>
-                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#00d4aa] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>GitHub</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#00d4aa] transition-all">Git</span>
+                  <span className="px-4 py-2 rounded-full text-label-mono text-tertiary hover:border-[#00d4aa] transition-all">GitHub</span>
                 </div>
               </div>
             </div>
@@ -468,7 +475,7 @@ export default function Home() {
             <div className="flex justify-between items-end mb-12">
               <h2 className="text-headline-lg text-on-surface"><span className="text-[#6c63ff]">/</span> Featured Work</h2>
               <a className="hidden md:flex items-center gap-2 text-label-mono text-[#00d4aa] hover:text-[#41eec2] transition-colors" href="https://github.com/Samsulmaarif01" target="_blank" rel="noreferrer">
-                View All on GitHub 
+                View All on GitHub
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
@@ -609,7 +616,7 @@ export default function Home() {
                       <a className="inline-flex items-center gap-1.5 text-label-mono text-[#6c63ff] hover:text-[#c4c0ff] transition-colors" href="https://github.com/Samsulmaarif01/Web-Pengumpulan-Tugas-Mahasiswa" target="_blank" rel="noreferrer">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg> GitHub <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
                       </a>
-                      <a className="inline-flex items-center gap-1.5 text-label-mono text-[#00d4aa] hover:text-[#41eec2] transition-colors" href="https://web-pengumpulan-tugas-mahasiswa.vercel.app" target="_blank" rel="noreferrer">
+                      <a className="inline-flex items-center gap-1.5 text-label-mono text-[#00d4aa] hover:text-[#41eec2] transition-colors" href="https://web-pengumpulan-tugas-mahasiswa-t5km.vercel.app/" target="_blank" rel="noreferrer">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg> Live Demo <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
                       </a>
                       <span className="ml-auto text-label-caps text-text-muted">JavaScript · Vercel</span>
@@ -795,7 +802,7 @@ export default function Home() {
           <div className="absolute right-0 bottom-0 w-1/2 h-1/2 pointer-events-none" style={{ background: "radial-gradient(ellipse at bottom right, rgba(108,99,255,0.1) 0%, transparent 70%)" }}></div>
           <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px] relative z-10">
             <div className="max-w-3xl mx-auto text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }}>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00d4aa] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00d4aa]"></span>
@@ -832,14 +839,14 @@ export default function Home() {
                 <div>
                   <h3 className="text-headline-md text-lg text-on-surface mb-4">Socials</h3>
                   <div className="flex gap-4">
-                    <a className="w-12 h-12 rounded-lg flex items-center justify-center text-tertiary hover:text-white hover:border-[#6c63ff] hover:bg-[rgba(108,99,255,0.1)] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }} href="https://github.com/Samsulmaarif01" target="_blank" rel="noreferrer" aria-label="GitHub">
+                    <a className="w-12 h-12 rounded-lg flex items-center justify-center text-tertiary hover:text-white hover:border-[#6c63ff] hover:bg-[rgba(108,99,255,0.1)] transition-all" href="https://github.com/Samsulmaarif01" target="_blank" rel="noreferrer" aria-label="GitHub">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
                       </svg>
                     </a>
-                    <a className="w-12 h-12 rounded-lg flex items-center justify-center text-tertiary hover:text-white hover:border-[#00d4aa] hover:bg-[rgba(0,212,170,0.1)] transition-all" style={{ background: "rgba(26,26,36,1)", border: "1px solid rgba(255,255,255,0.08)" }} href="https://linkedin.com/in/samsul-maarif-me" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                    <a className="w-12 h-12 rounded-lg flex items-center justify-center text-tertiary hover:text-white hover:border-[#00d4aa] hover:bg-[rgba(0,212,170,0.1)] transition-all" href="https://linkedin.com/in/samsul-maarif-me" target="_blank" rel="noreferrer" aria-label="LinkedIn">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                       </svg>
                     </a>
                   </div>
