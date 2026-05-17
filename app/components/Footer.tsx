@@ -1,14 +1,18 @@
+import data from "../data.json";
+
 interface FooterProps {
   showScrollTop: boolean;
 }
 
 export default function Footer({ showScrollTop }: FooterProps) {
+  const initials = data.profile.name.split(' ').map(n => n[0]).join('');
+
   return (
     <>
       <footer style={{ background: "rgba(12,14,18,1)", borderTop: "1px solid rgba(255,255,255,0.08)" }} className="py-8 w-full">
         <div className="max-w-[1280px] mx-auto px-[48px] flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-display-hero text-[18px] text-[#6c63ff]">SM</div>
-          <p className="text-body-md text-sm text-tertiary">© 2026 Samsul Maarif. Built with Precision.</p>
+          <div className="text-display-hero text-[18px] text-[#6c63ff] font-display-hero">{initials}</div>
+          <p className="text-body-md text-sm text-tertiary">© 2026 {data.profile.name}. Built with Precision.</p>
           <div className="flex gap-4">
           </div>
         </div>

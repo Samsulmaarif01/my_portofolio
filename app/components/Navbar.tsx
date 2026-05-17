@@ -1,5 +1,7 @@
 "use client";
 
+import data from "../data.json";
+
 interface NavbarProps {
   isDarkMode: boolean;
   isScrolled: boolean;
@@ -18,7 +20,9 @@ export default function Navbar({
   toggleMobileMenu,
   closeMobileMenu,
   handleMobileNavClick 
-}: NavbarProps) {
+ }: NavbarProps) {
+  const initials = data.profile.name.split(' ').map(n => n[0]).join('');
+
   return (
     <>
       <nav
@@ -35,11 +39,13 @@ export default function Navbar({
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
           style={{ background: "linear-gradient(90deg, transparent, rgba(108,99,255,0.03), transparent)" }}></div>
         <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px] flex justify-between items-center h-16">
-          <div className="font-display-hero text-headline-md tracking-tighter nav-logo">SM</div>
+          <div className="font-display-hero text-headline-md tracking-tighter nav-logo">{initials}</div>
           <div className="hidden md:flex gap-1 items-center nav-links">
             <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300" href="#about">About</a>
             <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300" href="#skills">Tech Stack</a>
             <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300" href="#experience">Background</a>
+            <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300" href="#projects">Projects</a>
+            <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300" href="#certifications">Certifications</a>
             <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300" href="#contact">Contact</a>
           </div>
           <div className="flex items-center gap-2">

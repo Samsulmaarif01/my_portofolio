@@ -12,6 +12,8 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import LoadingScreen from "./components/LoadingScreen";
 
+import data from "./data.json";
+
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -25,7 +27,7 @@ export default function Home() {
     // Typing Animation - Loop every 5 seconds
     const typingElement = document.getElementById('typing-name');
     if (typingElement) {
-      const text = 'Samsul Maarif';
+      const text = data.profile.name;
       let index = 0;
       let isTyping = true;
 

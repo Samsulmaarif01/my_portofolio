@@ -1,0 +1,174 @@
+{
+  "profile": {
+    "name": "Samsul Maarif",
+    "title": "Web Developer & Flutter Engineer",
+    "tagline": "Building digital products that matter.",
+    "location": "Indonesia",
+    "email": "samsulmaarif1076@gmail.com",
+    "github": "https://github.com/Samsulmaarif01",
+    "linkedin": "https://linkedin.com/in/samsul-maarif-me",
+    "cv": "#"
+  },
+  "about": {
+    "description": "Saya Samsul Maarif, mahasiswa S1 Teknik Informatika di Universitas Pamulang dan Lulusan SMK Letris Indonesia 2 Jurusan Rekayasa Perangkat Lunak. Memiliki minat besar di bidang Web Developer dan Mobile Developer, serta memiliki pengalaman dan pengetahuan yang kuat terkait pembuatan aplikasi berbasis web dan mobile.",
+    "secondaryDescription": "Berpengalaman mengerjakan berbagai proyek, dari website hingga aplikasi mobile, dengan fokus pada UI/UX yang modern dan performa yang optimal. Terbiasa menggunakan Flutter, Laravel, dan berbagai teknologi modern lainnya.",
+    "stats": [
+      { "icon": "code", "value": "5+ Years", "label": "Coding Experience", "color": "#00d4aa" },
+      { "icon": "rocket_launch", "value": "20+ Projects", "label": "Successfully Delivered", "color": "#6c63ff" },
+      { "icon": "public", "value": "Worldwide", "label": "Clients Served", "color": "#00d4aa" }
+    ]
+  },
+  "skills": [
+    {
+      "name": "Frontend",
+      "icon": "web",
+      "color": "#6c63ff",
+      "items": ["HTML", "CSS", "JavaScript", "Tailwind CSS", "Bootstrap", "Blade PHP", "Livewire", "React.js"]
+    },
+    {
+      "name": "Mobile",
+      "icon": "phone_android",
+      "color": "#00d4aa",
+      "items": ["Flutter", "Dart"]
+    },
+    {
+      "name": "Backend",
+      "icon": "storage",
+      "color": "#6c63ff",
+      "items": ["Laravel", "Node.js", "Firebase", "Supabase", "AppWrite"]
+    },
+    {
+      "name": "Database",
+      "icon": "dns",
+      "color": "#00d4aa",
+      "items": ["MySQL"]
+    },
+    {
+      "name": "AI & Tools",
+      "icon": "auto_awesome",
+      "color": "#6c63ff",
+      "items": ["Antigravity", "Opencode", "Claude", "Gemini"]
+    },
+    {
+      "name": "DevOps",
+      "icon": "sync",
+      "color": "#00d4aa",
+      "items": ["Git", "GitHub"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "shamo",
+      "title": "Shamo Flutter App",
+      "description": "Aplikasi e-commerce sepatu cross-platform berbasis Flutter. Fitur lengkap: product listing dengan kategori, cart management, autentikasi user, dan integrasi REST API backend. Dibangun dari kursus BWA dengan arsitektur clean code.",
+      "tags": ["Flutter", "Dart", "REST API"],
+      "status": "Completed",
+      "featured": true,
+      "github": "https://github.com/Samsulmaarif01/Shamo-Flutter-App",
+      "demo": null,
+      "gradient": "linear-gradient(135deg, #1a1a2e 0%, #0d3b6e 50%, #16213e 100%)"
+    },
+    {
+      "id": "web-tiket",
+      "title": "Web Tiket Online",
+      "description": "Platform pemesanan tiket online berbasis web. Sistem manajemen tiket lengkap dengan autentikasi pengguna, pemilihan kursi, dan konfirmasi pemesanan.",
+      "tags": ["Laravel", "PHP", "MySQL"],
+      "status": "Completed",
+      "featured": false,
+      "github": "https://github.com/Samsulmaarif01/web-tiket-online",
+      "demo": null,
+      "gradient": "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)"
+    },
+    {
+      "id": "coworkers",
+      "title": "Coworkers",
+      "description": "Aplikasi manajemen coworking space berbasis web. Booking ruang kerja, manajemen member, jadwal ruangan, dan dashboard admin terintegrasi.",
+      "tags": ["Flutter", "Dart", "AppWrite"],
+      "status": "Completed",
+      "featured": false,
+      "github": "https://github.com/Samsulmaarif01/coworkers",
+      "demo": null,
+      "gradient": "linear-gradient(135deg, #1a1a2e 0%, #2d1b69 50%, #11998e 100%)"
+    },
+    {
+      "id": "tugas-mahasiswa",
+      "title": "Web Pengumpulan Tugas Mahasiswa",
+      "description": "Sistem manajemen pengumpulan tugas kuliah berbasis browser. Upload file, tracking deadline per mata kuliah, notifikasi, dan manajemen data mahasiswa. Deployed di Vercel — fully functional tanpa backend.",
+      "tags": ["JavaScript", "CSS", "HTML"],
+      "status": "Live",
+      "featured": true,
+      "github": "https://github.com/Samsulmaarif01/Web-Pengumpulan-Tugas-Mahasiswa",
+      "demo": "https://web-pengumpulan-tugas-mahasiswa-t5km.vercel.app/",
+      "gradient": "linear-gradient(135deg, #1a1a2e 0%, #3a1c71 40%, #d76d77 100%)"
+    },
+    {
+      "id": "fashion-store",
+      "title": "FashionStore",
+      "description": "Platform e-commerce fashion berbasis web",
+      "tags": ["Laravel"],
+      "status": "Completed",
+      "featured": false,
+      "github": "https://github.com/Samsulmaarif01/FashionStore",
+      "demo": null,
+      "gradient": "linear-gradient(135deg, #8e2de2, #4a00e0)"
+    },
+    {
+      "id": "moonton",
+      "title": "Moonton",
+      "description": "Platform streaming film berbasis Laravel",
+      "tags": ["Laravel", "React.js"],
+      "status": "Completed",
+      "featured": false,
+      "github": "https://github.com/Samsulmaarif01/moonton",
+      "demo": null,
+      "gradient": "linear-gradient(135deg, #0f2027, #2c5364)"
+    }
+  ],
+  "experience": [
+    {
+      "type": "work",
+      "year": "2025",
+      "title": "PT Rhi Build",
+      "subtitle": "Magang kerja Praktek",
+      "description": "Membuat sebuah project management tools menggunakan React js dan website untuk membantu monitoring project"
+    },
+    {
+      "type": "work",
+      "year": "2021",
+      "title": "NICT UIN Jakarta",
+      "subtitle": "Prakerin (Magang)",
+      "description": "Instalasi OS pada komputer client, maintenance komputer dan jaringan lokal, dan merakit komputer PC/Desktop. membuat Frontend ui sebagai referensi"
+    }
+  ],
+  "education": [
+    {
+      "type": "education",
+      "year": "2022 – 2026",
+      "title": "Universitas Pamulang",
+      "subtitle": "S1 Teknik Informatika",
+      "description": "Fokus pada pengembangan perangkat lunak, algoritma, dan rekayasa data."
+    },
+    {
+      "type": "education",
+      "year": "2019 – 2022",
+      "title": "SMK Letris Indonesia 2",
+      "subtitle": "Rekayasa Perangkat Lunak",
+      "description": "Mempelajari dasar-dasar pemrograman, basis data, dan pengembangan aplikasi."
+    }
+  ],
+  "certifications": [
+    { "id": 1, "title": "Belajar Membuat Aplikasi Flutter untuk Pemula", "issuer": "Dicoding Academy", "category": "Mobile Dev", "year": "2023", "color": "#6c63ff" },
+    { "id": 2, "title": "Belajar Prinsip Pemrograman SOLID", "issuer": "Dicoding Academy", "category": "Software Eng", "year": "2023", "color": "#00d4aa" },
+    { "id": 3, "title": "Memulai Pemrograman dengan Dart", "issuer": "Dicoding Academy", "category": "Programming", "year": "2023", "color": "#6c63ff" },
+    { "id": 4, "title": "Full-Stack Laravel Web Development", "issuer": "BWA", "category": "Web Dev", "year": "2023", "color": "#00d4aa" },
+    { "id": 5, "title": "Belajar Dasar Git with GitHub", "issuer": "Dicoding Academy", "category": "DevOps", "year": "2024", "color": "#6c63ff" },
+    { "id": 6, "title": "Belajar Fundamental Front-End Web", "issuer": "Dicoding Academy", "category": "Web Dev", "year": "2024", "color": "#00d4aa" },
+    { "id": 7, "title": "Cloud Practitioner Essentials", "issuer": "Dicoding Academy", "category": "Cloud", "year": "2024", "color": "#6c63ff" },
+    { "id": 8, "title": "Menjadi Flutter Developer", "issuer": "BWA", "category": "Mobile Dev", "year": "2024", "color": "#00d4aa" },
+    { "id": 9, "title": "Belajar Database MySQL", "issuer": "Dicoding Academy", "category": "Database", "year": "2024", "color": "#6c63ff" },
+    { "id": 10, "title": "UI/UX Design Fundamental", "issuer": "Dicoding Academy", "category": "Design", "year": "2024", "color": "#00d4aa" },
+    { "id": 11, "title": "Machine Learning Terapan", "issuer": "Dicoding Academy", "category": "AI", "year": "2025", "color": "#6c63ff" },
+    { "id": 12, "title": "AWS Cloud Fundamentals", "issuer": "AWS", "category": "Cloud", "year": "2025", "color": "#00d4aa" }
+  ],
+  "certificationCategories": ["All", "Mobile Dev", "Web Dev", "Programming", "Software Eng", "DevOps", "Cloud", "Database", "Design", "AI"]
+}

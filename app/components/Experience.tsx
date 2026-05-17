@@ -1,3 +1,5 @@
+import data from "../data.json";
+
 export default function Experience() {
   return (
     <section className="py-[120px] reveal" id="experience" style={{ background: "rgba(12,14,18,0.5)" }}>
@@ -11,20 +13,22 @@ export default function Experience() {
               </svg> Experience
             </h2>
             <div className="relative pl-8">
-              <div className="timeline-item relative pb-12">
-                <div className="timeline-dot absolute -left-8 top-1 w-4 h-4 rounded-full" style={{ background: "#6c63ff", boxShadow: "0 0 10px #6c63ff" }}></div>
-                <span className="text-label-mono text-[#00d4aa] mb-2 block">2025</span>
-                <h3 className="text-headline-md text-xl text-on-surface">PT Rhi Build</h3>
-                <h4 className="text-body-lg text-tertiary mb-3">Magang kerja Praktek</h4>
-                <p className="text-body-md text-sm text-text-muted">Membuat sebuah project management tools menggunakan React js dan website untuk membantu monitoring project </p>
-              </div>
-              <div className="timeline-item relative pb-12">
-                <div className="timeline-dot absolute -left-8 top-1 w-4 h-4 rounded-full" style={{ background: "rgba(26,26,36,1)", border: "2px solid #6c63ff" }}></div>
-                <span className="text-label-mono text-[#00d4aa] mb-2 block">2021</span>
-                <h3 className="text-headline-md text-xl text-on-surface">NICT UIN Jakarta</h3>
-                <h4 className="text-body-lg text-tertiary mb-3">Prakerin (Magang)</h4>
-                <p className="text-body-md text-sm text-text-muted">Instalasi OS pada komputer client, maintenance komputer dan jaringan lokal, dan merakit komputer PC/Desktop. membuat Frontend ui sebagai referensi</p>
-              </div>
+              {data.experience.map((exp, index) => (
+                <div key={index} className="timeline-item relative pb-12">
+                  <div 
+                    className="timeline-dot absolute -left-8 top-1 w-4 h-4 rounded-full" 
+                    style={{ 
+                      background: index === 0 ? "#6c63ff" : "rgba(26,26,36,1)", 
+                      border: index === 0 ? "none" : "2px solid #6c63ff",
+                      boxShadow: index === 0 ? "0 0 10px #6c63ff" : "none" 
+                    }}
+                  ></div>
+                  <span className="text-label-mono text-[#00d4aa] mb-2 block">{exp.year}</span>
+                  <h3 className="text-headline-md text-xl text-on-surface">{exp.title}</h3>
+                  <h4 className="text-body-lg text-tertiary mb-3">{exp.subtitle}</h4>
+                  <p className="text-body-md text-sm text-text-muted">{exp.description}</p>
+                </div>
+              ))}
             </div>
           </div>
           {/* Education */}
@@ -36,20 +40,22 @@ export default function Experience() {
               </svg> Education
             </h2>
             <div className="relative pl-8">
-              <div className="timeline-item relative pb-12">
-                <div className="timeline-dot absolute -left-8 top-1 w-4 h-4 rounded-full" style={{ background: "#00d4aa", boxShadow: "0 0 10px #00d4aa" }}></div>
-                <span className="text-label-mono text-[#6c63ff] mb-2 block">2022 – 2026</span>
-                <h3 className="text-headline-md text-xl text-on-surface">Universitas Pamulang</h3>
-                <h4 className="text-body-lg text-tertiary mb-3">S1 Teknik Informatika</h4>
-                <p className="text-body-md text-sm text-text-muted">Fokus pada pengembangan perangkat lunak, algoritma, dan rekayasa data.</p>
-              </div>
-              <div className="timeline-item relative pb-12">
-                <div className="timeline-dot absolute -left-8 top-1 w-4 h-4 rounded-full" style={{ background: "rgba(26,26,36,1)", border: "2px solid #00d4aa" }}></div>
-                <span className="text-label-mono text-[#6c63ff] mb-2 block">2019 – 2022</span>
-                <h3 className="text-headline-md text-xl text-on-surface">SMK Letris Indonesia 2</h3>
-                <h4 className="text-body-lg text-tertiary mb-3">Rekayasa Perangkat Lunak</h4>
-                <p className="text-body-md text-sm text-text-muted">Mempelajari dasar-dasar pemrograman, basis data, dan pengembangan aplikasi.</p>
-              </div>
+              {data.education.map((edu, index) => (
+                <div key={index} className="timeline-item relative pb-12">
+                  <div 
+                    className="timeline-dot absolute -left-8 top-1 w-4 h-4 rounded-full" 
+                    style={{ 
+                      background: index === 0 ? "#00d4aa" : "rgba(26,26,36,1)", 
+                      border: index === 0 ? "none" : "2px solid #00d4aa",
+                      boxShadow: index === 0 ? "0 0 10px #00d4aa" : "none" 
+                    }}
+                  ></div>
+                  <span className="text-label-mono text-[#6c63ff] mb-2 block">{edu.year}</span>
+                  <h3 className="text-headline-md text-xl text-on-surface">{edu.title}</h3>
+                  <h4 className="text-body-lg text-tertiary mb-3">{edu.subtitle}</h4>
+                  <p className="text-body-md text-sm text-text-muted">{edu.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
