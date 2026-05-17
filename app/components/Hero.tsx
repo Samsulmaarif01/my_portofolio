@@ -18,7 +18,7 @@ export default function Hero() {
         <p className="text-headline-md text-on-surface mb-4 animate-reveal-up">{data.profile.tagline}</p>
         <p className="text-body-lg text-tertiary mb-12 animate-reveal-up" style={{ animationDelay: "0.3s" }}>{data.profile.title} based in {data.profile.location}</p>
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          <a className="px-6 py-4 bg-[#6c63ff] hover:bg-[#5b54d6] text-white text-label-mono rounded transition-colors flex items-center justify-center gap-2 glow-pulse-hover w-full sm:w-auto" href="#projects" style={{ boxShadow: "0 0 20px rgba(108,99,255,0.15)" }} onMouseEnter={(e) => e.currentTarget.classList.add('glow-pulse')} onMouseLeave={(e) => e.currentTarget.classList.remove('glow-pulse')}>
+          <a className="hero-cta-btn px-6 py-4 bg-[#6c63ff] hover:bg-[#5b54d6] text-white text-label-mono rounded transition-colors flex items-center justify-center gap-2 glow-pulse-hover w-full sm:w-auto" href="#projects" style={{ boxShadow: "0 0 20px rgba(108,99,255,0.15)" }} onMouseEnter={(e) => e.currentTarget.classList.add('glow-pulse')} onMouseLeave={(e) => e.currentTarget.classList.remove('glow-pulse')}>
             View My Work <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </a>
           <a className="px-6 py-4 border border-[#6c63ff] text-[#6c63ff] hover:bg-[#6c63ff]/10 text-label-mono rounded transition-colors flex items-center justify-center gap-2 w-full sm:w-auto" href={data.profile.cv}>

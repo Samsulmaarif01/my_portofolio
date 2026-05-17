@@ -2,7 +2,7 @@ import data from "../data.json";
 
 export default function Contact() {
   return (
-    <section className="py-[120px] reveal border-t relative overflow-hidden" id="contact" style={{ background: "rgba(12,14,18,0.8)", borderColor: "rgba(255,255,255,0.08)" }}>
+    <section className="py-[120px] reveal border-t relative overflow-hidden" id="contact" role="region" aria-labelledby="contact-title" style={{ background: "rgba(12,14,18,0.8)", borderColor: "rgba(255,255,255,0.08)" }}>
       <div className="absolute top-10 left-1/4 w-24 h-24 rounded-full opacity-10 pointer-events-none parallax-float" style={{ background: "linear-gradient(135deg, #6c63ff, #00d4aa)" }}></div>
       <div className="absolute bottom-10 right-1/3 w-16 h-16 rounded-full opacity-15 pointer-events-none parallax-float-slow" style={{ background: "linear-gradient(135deg, #00d4aa, #6c63ff)" }}></div>
       <div className="absolute right-0 bottom-0 w-1/2 h-1/2 pointer-events-none" style={{ background: "radial-gradient(ellipse at bottom right, rgba(108,99,255,0.1) 0%, transparent 70%)" }}></div>
@@ -15,7 +15,7 @@ export default function Contact() {
             </span>
             <span className="text-label-caps text-[#00d4aa]">Available for freelance</span>
           </div>
-          <h2 className="text-display-hero text-[48px] md:text-[56px] text-on-surface mb-6">Let's Build Something Great.</h2>
+          <h2 id="contact-title" className="text-display-hero text-[48px] md:text-[56px] text-on-surface mb-6">Let's Build Something Great.</h2>
           <p className="text-body-lg text-tertiary">Have a project in mind? I'm always open to discussing new opportunities, collaborations, or tech in general.</p>
         </div>
         <div className="grid md:grid-cols-5 gap-12 max-w-5xl mx-auto">
@@ -64,23 +64,25 @@ export default function Contact() {
           </div>
           <div className="md:col-span-3">
             <div className="bento-card p-8 rounded-xl">
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label className="block text-label-mono text-tertiary mb-2">Name</label>
-                  <input className="w-full rounded-lg px-4 py-3 text-on-surface transition-colors" placeholder="John Doe" type="text" style={{ background: "rgba(18,18,26,1)", border: "1px solid rgba(255,255,255,0.08)", outline: "none" }} />
+              <form role="form" aria-label="Contact form">
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label htmlFor="name" className="block text-label-mono text-tertiary mb-2">Name</label>
+                    <input id="name" className="w-full rounded-lg px-4 py-3 text-on-surface transition-colors focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" placeholder="John Doe" type="text" required aria-required="true" style={{ background: "rgba(18,18,26,1)", border: "1px solid rgba(255,255,255,0.08)" }} />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-label-mono text-tertiary mb-2">Email</label>
+                    <input id="email" className="w-full rounded-lg px-4 py-3 text-on-surface transition-colors focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" placeholder="john@example.com" type="email" required aria-required="true" style={{ background: "rgba(18,18,26,1)", border: "1px solid rgba(255,255,255,0.08)" }} />
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-label-mono text-tertiary mb-2">Email</label>
-                  <input className="w-full rounded-lg px-4 py-3 text-on-surface transition-colors" placeholder="john@example.com" type="email" style={{ background: "rgba(18,18,26,1)", border: "1px solid rgba(255,255,255,0.08)", outline: "none" }} />
+                <div className="mb-6">
+                  <label htmlFor="message" className="block text-label-mono text-tertiary mb-2">Message</label>
+                  <textarea id="message" className="w-full rounded-lg px-4 py-3 text-on-surface transition-colors focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" placeholder="Tell me about your project..." rows={4} required aria-required="true" style={{ background: "rgba(18,18,26,1)", border: "1px solid rgba(255,255,255,0.08)", resize: "vertical" }}></textarea>
                 </div>
-              </div>
-              <div className="mb-6">
-                <label className="block text-label-mono text-tertiary mb-2">Message</label>
-                <textarea className="w-full rounded-lg px-4 py-3 text-on-surface transition-colors" placeholder="Tell me about your project..." rows={4} style={{ background: "rgba(18,18,26,1)", border: "1px solid rgba(255,255,255,0.08)", outline: "none", resize: "vertical" }}></textarea>
-              </div>
-              <button className="w-full py-4 bg-[#6c63ff] hover:bg-[#5b54d6] text-white text-label-mono rounded-lg transition-colors" type="button" style={{ boxShadow: "0 0 20px rgba(108,99,255,0.15)" }}>
-                Send Message
-              </button>
+                <button className="w-full py-4 bg-[#6c63ff] hover:bg-[#5b54d6] text-white text-label-mono rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" type="button" aria-label="Send message">
+                  Send Message
+                </button>
+              </form>
             </div>
           </div>
         </div>

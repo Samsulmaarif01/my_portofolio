@@ -68,18 +68,26 @@ export default function Home() {
       // Scroll Spy - Active navbar link
       const navLinks = document.querySelectorAll('.nav-link');
       const sections = document.querySelectorAll('#about, #skills, #projects, #experience, #certifications, #contact');
+      const sectionOrder = ['about', 'skills', 'projects', 'experience', 'certifications', 'contact'];
 
       const updateActiveNav = () => {
         let current = '';
-        sections.forEach(section => {
-          const sectionTop = (section as HTMLElement).offsetTop - 100;
-          if (window.scrollY >= sectionTop) {
-            current = section.getAttribute('id') || '';
+        const scrollPosition = window.scrollY + 150;
+        
+        for (const sectionId of sectionOrder) {
+          const section = document.getElementById(sectionId);
+          if (section) {
+            const sectionTop = section.offsetTop;
+            if (scrollPosition >= sectionTop) {
+              current = sectionId;
+            }
           }
-        });
+        }
+        
         navLinks.forEach(link => {
           link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + current) {
+          const href = link.getAttribute('href');
+          if (href === '#' + current) {
             link.classList.add('active');
           }
         });
@@ -246,21 +254,23 @@ export default function Home() {
           handleMobileNavClick={handleMobileNavClick}
         />
 
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        
-        <Certifications 
-          isDarkMode={isDarkMode}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          isDropdownOpen={isDropdownOpen}
-          setIsDropdownOpen={setIsDropdownOpen}
-        />
-        
-        <Contact />
+        <main id="main-content">
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Experience />
+          
+          <Certifications 
+            isDarkMode={isDarkMode}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            isDropdownOpen={isDropdownOpen}
+            setIsDropdownOpen={setIsDropdownOpen}
+          />
+          
+          <Contact />
+        </main>
         
         <Footer showScrollTop={showScrollTop} />
       </div>
