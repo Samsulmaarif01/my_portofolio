@@ -1024,3 +1024,30 @@ nav.fixed {
 .page-content.loaded nav.fixed {
   transform: translateY(0);
 }
+
+/* Custom Scrollbar for Certifications */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6c63ff, #00d4aa);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #5b54d6, #41eec2);
+}
+
+html.light .scrollbar-thin::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+html.light .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4f46e5, #14b8a6);
+}
