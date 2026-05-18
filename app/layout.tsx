@@ -21,6 +21,7 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://samsulmaarif.com'),
   title: 'Samsul Maarif | Web & Flutter Developer',
   description: 'Portfolio of Samsul Maarif, a Web Developer and Flutter Developer from Indonesia specializing in modern web applications and mobile apps.',
   keywords: ['Samsul Maarif', 'Portfolio', 'Web Developer', 'Flutter Developer', 'Indonesia', 'React', 'Next.js'],
