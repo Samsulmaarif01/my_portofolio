@@ -6,9 +6,15 @@ import data from "../data.json";
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const tiltRef = useRef<HTMLDivElement>(null);
   const avatarRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
+
+  const targetX = useRef(0);
+  const targetY = useRef(0);
+  const currentX = useRef(0);
+  const currentY = useRef(0);
+  const animationFrameId = useRef<number | null>(null);
 
   const initials = data.profile.name.split(' ').map(n => n[0]).join('');
 
@@ -16,19 +22,47 @@ export default function About() {
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) / 20;
-      const y = (e.clientY - rect.top - rect.height / 2) / 20;
-      setMousePosition({ x, y });
+      const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+      const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+      
+      // Target rotation in degrees (max 8 degrees for an elegant 3D tilt)
+      targetX.current = x * 8;
+      targetY.current = -y * 8;
+    };
+
+    const handleMouseLeave = () => {
+      // Smoothly return to center on mouse leave
+      targetX.current = 0;
+      targetY.current = 0;
     };
 
     const section = sectionRef.current;
     if (section) {
       section.addEventListener("mousemove", handleMouseMove);
+      section.addEventListener("mouseleave", handleMouseLeave);
     }
+
+    const updateTilt = () => {
+      // Linear interpolation (lerp) for ultra-smooth movement (0.08 interpolation factor)
+      currentX.current += (targetX.current - currentX.current) * 0.08;
+      currentY.current += (targetY.current - currentY.current) * 0.08;
+
+      if (tiltRef.current) {
+        tiltRef.current.style.transform = `rotateX(${currentY.current}deg) rotateY(${currentX.current}deg)`;
+      }
+
+      animationFrameId.current = requestAnimationFrame(updateTilt);
+    };
+
+    animationFrameId.current = requestAnimationFrame(updateTilt);
 
     return () => {
       if (section) {
         section.removeEventListener("mousemove", handleMouseMove);
+        section.removeEventListener("mouseleave", handleMouseLeave);
+      }
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
       }
     };
   }, []);
@@ -73,13 +107,17 @@ export default function About() {
       <div className="absolute top-20 right-10 w-32 h-32 rounded-full opacity-20 pointer-events-none parallax-float" style={{ background: "linear-gradient(135deg, #6c63ff, #00d4aa)" }}></div>
       <div className="absolute bottom-20 left-5 w-20 h-20 rounded-full opacity-15 pointer-events-none parallax-float-slow" style={{ background: "linear-gradient(135deg, #00d4aa, #6c63ff)" }}></div>
       
-      <div ref={containerRef} className="max-w-[1280px] mx-auto px-[16px] md:px-[48px]">
+      <div 
+        ref={containerRef} 
+        className="max-w-[1280px] mx-auto px-[16px] md:px-[48px]"
+        style={{ perspective: "1500px" }}
+      >
         <div 
+          ref={tiltRef}
           className="grid md:grid-cols-2 gap-12 items-center"
           style={{
-            transform: `rotateX(${mousePosition.y}deg) rotateY(${mousePosition.x}deg)`,
-            transition: 'transform 0.1s ease-out',
-            transformStyle: 'preserve-3d'
+            transformStyle: 'preserve-3d',
+            willChange: 'transform'
           }}
         >
           <div className="flex justify-center">

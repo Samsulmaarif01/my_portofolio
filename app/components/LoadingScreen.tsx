@@ -5,8 +5,9 @@ interface LoadingScreenProps {
 export default function LoadingScreen({ isLoaded }: LoadingScreenProps) {
   return (
     <div
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center transition-all duration-700 bg-[#0a0a0f] ${isLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center transition-all duration-700 loading-screen-container ${
+        isLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      }`}
     >
       <div className="relative">
         {/* Logo Animation */}
@@ -23,10 +24,12 @@ export default function LoadingScreen({ isLoaded }: LoadingScreenProps) {
       </div>
 
       {/* Loading Progress Text */}
-      <div className="mt-12 overflow-hidden w-48 h-0.5 bg-white/5 rounded-full relative">
+      <div className="mt-12 overflow-hidden w-48 h-0.5 rounded-full relative loading-screen-progress-track">
         <div className="absolute inset-0 bg-gradient-to-r from-[#6c63ff] to-[#00d4aa] origin-left animate-loading-bar"></div>
       </div>
-      <p className="mt-4 text-label-mono text-xs text-tertiary/50 tracking-[0.2em] uppercase">Initializing Portfolio</p>
+      <p className="mt-4 text-label-mono text-xs tracking-[0.2em] uppercase loading-screen-text">
+        Initializing Portfolio
+      </p>
     </div>
   );
 }
