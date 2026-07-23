@@ -1,23 +1,23 @@
 import type { Metadata } from 'next';
-import { JetBrains_Mono, Space_Grotesk, Syne } from 'next/font/google';
+import { JetBrains_Mono, Manrope, Sora } from 'next/font/google';
 import './globals.css';
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ['latin'],
-  weight: ['500', '700'],
+  weight: ['400', '500', '600'],
   variable: '--font-jetbrains-mono'
 });
 
-const spaceGrotesk = Space_Grotesk({
+const manrope = Manrope({
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  variable: '--font-space-grotesk'
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-manrope'
 });
 
-const syne = Syne({
+const sora = Sora({
   subsets: ['latin'],
-  weight: ['800'],
-  variable: '--font-syne'
+  weight: ['200', '300', '400', '600', '700', '800'],
+  variable: '--font-sora'
 });
 
 export const metadata: Metadata = {
@@ -48,8 +48,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Samsul Maarif | Web & Flutter Developer',
     description: 'Portfolio of Samsul Maarif, a Web Developer and Flutter Developer from Indonesia.',
-    creator: '@samsulmaarif01',
     images: ['/og-image.png'],
+    creator: '@samsulmaarif01',
   },
   robots: {
     index: true,
@@ -62,19 +62,28 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-};
-
-export const viewport = {
-  themeColor: '#6c63ff',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/apple-touch-icon-precomposed.png',
+    },
+  },
+  manifest: '/manifest.json',
+  alternates: {
+    canonical: 'https://samsulmaarif.com',
+  },
 };
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
         <script
           id="theme-initializer"
@@ -95,13 +104,16 @@ export default function RootLayout({
             `
           }}
         />
+        <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -124,7 +136,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${jetbrainsMono.variable} ${spaceGrotesk.variable} ${syne.variable} bg-background text-on-background antialiased`}>
+      <body className={`${jetbrainsMono.variable} ${manrope.variable} ${sora.variable} bg-bg text-fg font-sans antialiased selection:bg-accent selection:text-black`}>
         {children}
       </body>
     </html>

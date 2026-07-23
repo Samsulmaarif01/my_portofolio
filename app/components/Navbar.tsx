@@ -21,54 +21,51 @@ export default function Navbar({
   closeMobileMenu,
   handleMobileNavClick 
  }: NavbarProps) {
-  const initials = data.profile.name.split(' ').map(n => n[0]).join('');
+  const name = data.profile.name.split(' ')[0] || 'Samsul';
 
   return (
     <>
       <nav
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled
-          ? 'py-3 backdrop-blur-xl shadow-lg border-b border-white/5'
-          : 'py-5 backdrop-blur-sm'
-          } group`}
-        style={{
-          background: isScrolled
-            ? "rgba(18,18,26,0.8)"
-            : "rgba(18,18,26,0.2)"
-        }}
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 backdrop-blur-md bg-[var(--bg)]/80 border-b ${isScrolled ? 'border-[var(--border)]' : 'border-transparent'}`}
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(108,99,255,0.03), transparent)" }}></div>
-        <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px] flex justify-between items-center h-16">
-          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#6c63ff] focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background">
-            Skip to main content
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center">
+          <a href="#hero-section" className="font-sora font-bold text-xl tracking-tight text-[var(--fg)]">
+            {name}<span className="text-[var(--accent)]">.</span>
           </a>
-          <a href="#about" className="font-display-hero text-headline-md tracking-tighter nav-logo focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background rounded-lg" aria-label="Go to About section">
-            {initials}
-          </a>
-          <div className="hidden md:flex gap-1 items-center nav-links" role="menubar">
-            <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background rounded-lg" href="#about" role="menuitem">About</a>
-            <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background rounded-lg" href="#skills" role="menuitem">Tech Stack</a>
-            <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background rounded-lg" href="#projects" role="menuitem">Projects</a>
-            <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background rounded-lg" href="#experience" role="menuitem">Background</a>
-            <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background rounded-lg" href="#certifications" role="menuitem">Certifications</a>
-            <a className="nav-link text-label-mono relative px-4 py-2 text-on-surface-variant hover:text-[#6c63ff] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background rounded-lg" href="#contact" role="menuitem">Contact</a>
+          
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8">
+            <div className="flex gap-6 font-mono text-sm">
+              <a href="#about" className="nav-link text-[var(--muted)] hover:text-[var(--fg)] transition-colors">About</a>
+              <a href="#skills" className="nav-link text-[var(--muted)] hover:text-[var(--fg)] transition-colors">Skills</a>
+              <a href="#projects" className="nav-link text-[var(--muted)] hover:text-[var(--fg)] transition-colors">Projects</a>
+              <a href="#experience" className="nav-link text-[var(--muted)] hover:text-[var(--fg)] transition-colors">Experience</a>
+            </div>
+            
+            <div className="flex items-center gap-4 border-l border-[var(--border-strong)] pl-8">
+              <button onClick={toggleTheme} className="w-10 h-10 rounded-full bg-[var(--bg-2)] hover:bg-[var(--bg-3)] border border-[var(--border)] flex items-center justify-center transition-colors text-[var(--fg)]" aria-label="Toggle Theme">
+                <i className={`fa-solid ${isDarkMode ? 'fa-sun' : 'fa-moon'}`}></i>
+              </button>
+              <a href="#contact" className="px-6 py-2.5 bg-[var(--fg)] text-[var(--bg)] font-semibold rounded hover:bg-[var(--accent)] transition-colors">
+                Let's Talk
+              </a>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <button onClick={toggleTheme} className="w-10 h-10 rounded-full flex items-center justify-center text-[#6c63ff] hover:bg-[#6c63ff]/10 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}>
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>
-                {isDarkMode ? 'dark_mode' : 'light_mode'}
-              </span>
+          
+          <div className="flex items-center gap-2 md:hidden">
+            <button onClick={toggleTheme} className="w-10 h-10 rounded-full bg-[var(--bg-2)] hover:bg-[var(--bg-3)] border border-[var(--border)] flex items-center justify-center transition-colors text-[var(--fg)]" aria-label="Toggle Theme">
+              <i className={`fa-solid ${isDarkMode ? 'fa-sun' : 'fa-moon'}`}></i>
             </button>
             <button
               onClick={toggleMobileMenu}
-              className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-[#6c63ff] hover:bg-[#6c63ff]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background"
+              className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--fg)] hover:bg-[var(--bg-2)] transition-colors focus:outline-none"
               aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
             >
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>
+              <span className="material-symbols-outlined">
                 {isMobileMenuOpen ? 'close' : 'menu'}
               </span>
             </button>
@@ -86,28 +83,26 @@ export default function Navbar({
       {/* Mobile Menu Drawer */}
       <div
         id="mobile-menu"
-        className={`fixed top-0 right-0 z-50 w-72 h-full md:hidden transition-transform duration-300 ease-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
-        style={{ background: "rgba(18,18,26,0.98)", borderLeft: "1px solid rgba(255,255,255,0.08)" }}
+        className={`fixed top-0 right-0 z-50 w-72 h-full md:hidden transition-transform duration-300 ease-out bg-[var(--bg)] border-l border-[var(--border-strong)] ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation menu"
       >
         <div className="flex flex-col h-full pt-20 px-6">
           <div className="flex flex-col gap-2" role="menu">
-            <a onClick={(e) => handleMobileNavClick(e, 'about')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" href="#about" role="menuitem">About</a>
-            <a onClick={(e) => handleMobileNavClick(e, 'skills')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" href="#skills" role="menuitem">Tech Stack</a>
-            <a onClick={(e) => handleMobileNavClick(e, 'projects')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" href="#projects" role="menuitem">Projects</a>
-            <a onClick={(e) => handleMobileNavClick(e, 'experience')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" href="#experience" role="menuitem">Background</a>
-            <a onClick={(e) => handleMobileNavClick(e, 'certifications')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" href="#certifications" role="menuitem">Certifications</a>
-            <a onClick={(e) => handleMobileNavClick(e, 'contact')} className="mobile-nav-link text-label-mono text-xl py-4 px-4 text-on-surface-variant hover:text-[#6c63ff] hover:bg-[#6c63ff]/10 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" href="#contact" role="menuitem">Contact</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'about')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#about" role="menuitem">About</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'skills')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#skills" role="menuitem">Skills</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'projects')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#projects" role="menuitem">Projects</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'experience')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#experience" role="menuitem">Experience</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'certifications')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#certifications" role="menuitem">Certifications</a>
+            <a onClick={(e) => handleMobileNavClick(e, 'contact')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#contact" role="menuitem">Contact</a>
           </div>
+          
           <div className="mt-auto pb-8">
-            <button onClick={() => { closeMobileMenu(); toggleTheme(); }} className="w-full py-4 rounded-lg flex items-center justify-center gap-2 text-[#6c63ff] hover:bg-[#6c63ff]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#6c63ff] focus:ring-offset-2 focus:ring-offset-background" aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}>
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>
-                {isDarkMode ? 'dark_mode' : 'light_mode'}
-              </span>
-              <span className="text-label-mono">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
-            </button>
+            <div className="flex justify-center gap-6 pt-6 border-t border-[var(--border-strong)]">
+              {data.profile.github && <a href={data.profile.github} target="_blank" rel="noopener noreferrer" className="text-[var(--muted)] hover:text-[var(--fg)] transition-colors" aria-label="GitHub"><i className="fa-brands fa-github text-2xl"></i></a>}
+              {data.profile.linkedin && <a href={data.profile.linkedin} target="_blank" rel="noopener noreferrer" className="text-[var(--muted)] hover:text-[var(--fg)] transition-colors" aria-label="LinkedIn"><i className="fa-brands fa-linkedin text-2xl"></i></a>}
+            </div>
           </div>
         </div>
       </div>

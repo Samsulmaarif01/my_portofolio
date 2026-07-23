@@ -3,11 +3,11 @@
 import data from "../data.json";
 
 interface CertificationsProps {
-  isDarkMode: boolean;
-  selectedCategory: string;
-  setSelectedCategory: (category: string) => void;
-  isDropdownOpen: boolean;
-  setIsDropdownOpen: (open: boolean) => void;
+  isDarkMode?: boolean;
+  selectedCategory?: string;
+  setSelectedCategory?: (category: string) => void;
+  isDropdownOpen?: boolean;
+  setIsDropdownOpen?: (open: boolean) => void;
 }
 
 export default function Certifications({ 
@@ -17,78 +17,54 @@ export default function Certifications({
   isDropdownOpen, 
   setIsDropdownOpen 
 }: CertificationsProps) {
+  const education = data.education;
   const certifications = data.certifications;
-  const categories = data.certificationCategories || ["All", "Mobile Dev", "Web Dev", "Programming", "Software Eng", "DevOps", "Cloud", "Database", "Design", "AI"];
-
-  const filteredCerts = certifications.filter(
-    cert => selectedCategory === "All" || cert.category === selectedCategory
-  );
 
   return (
-    <section className="py-[120px] reveal" id="certifications">
-      <div className="max-w-[1280px] mx-auto px-[16px] md:px-[48px]">
-        <h2 className="text-headline-lg text-on-surface mb-8 text-center"><span className="text-[#00d4aa]">/</span> Certifications</h2>
-        
-        {/* Dropdown Filter */}
-        <div className="flex justify-center mb-8 relative z-30">
-          <div className="relative">
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center gap-3 px-5 py-3 rounded-lg text-label-mono transition-all"
-              style={{ 
-                background: isDarkMode ? "rgba(26,26,36,1)" : "rgba(255,255,255,0.8)", 
-                border: "1px solid rgba(108,99,255,0.3)" 
-              }}
-            >
-              <span className="text-on-surface">{selectedCategory === "All" ? "All Certifications" : selectedCategory}</span>
-              <svg className={`w-5 h-5 text-tertiary transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+    <section id="certifications" className="py-24 relative z-10">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          {/* Education */}
+          <div>
+            <div className="inline-flex items-center gap-2 mb-12 reveal">
+              <span className="w-8 h-px bg-[var(--accent)]"></span>
+              <span className="text-sm font-mono tracking-widest text-[var(--accent)] uppercase">Education</span>
+            </div>
             
-            {isDropdownOpen && (
-              <div className="absolute top-full mt-2 left-0 w-full min-w-[200px] rounded-lg overflow-hidden z-50" style={{ 
-                background: isDarkMode ? "rgba(26,26,36,0.98)" : "rgba(255,255,255,0.98)", 
-                border: "1px solid rgba(108,99,255,0.3)" 
-              }}>
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => { setSelectedCategory(cat); setIsDropdownOpen(false); }}
-                    className={`w-full text-left px-4 py-3 text-label-mono transition-colors ${selectedCategory === cat ? 'text-[#6c63ff]' : 'text-tertiary hover:bg-white/5'}`}
-                  >
-                    {cat === "All" ? "All Certifications" : cat}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Scrollable Certifications Grid */}
-        <div className="max-h-[500px] overflow-y-auto pr-2 scrollbar-thin">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {filteredCerts.map((cert) => (
-              <div key={cert.id} className="bento-card p-6 rounded-xl flex flex-col h-full" style={{ borderTop: `4px solid ${cert.color}` }}>
-                <div className="flex justify-between items-start mb-4">
-                  <span className="px-2 py-1 rounded text-label-caps" style={{ background: `${cert.color}20`, color: cert.color }}>{cert.category}</span>
-                  <span className="text-label-mono text-text-muted">{cert.year}</span>
+            <div className="space-y-8">
+              {education.map((edu, index) => (
+                <div key={index} className="p-8 rounded-2xl border border-[var(--border-strong)] bg-[var(--card)] hover:border-[var(--accent)] transition-colors reveal" style={{ transitionDelay: `${index * 0.1}s` }}>
+                  <div className="text-[var(--accent)] font-mono text-sm mb-2">{edu.year}</div>
+                  <h3 className="text-xl font-bold font-sora mb-2">{edu.subtitle}</h3>
+                  <div className="text-[var(--fg)] font-medium mb-4">{edu.title}</div>
+                  <p className="text-[var(--muted)] font-manrope text-sm">{edu.description}</p>
                 </div>
-                <span className="text-label-caps text-text-muted uppercase tracking-wider mb-2 flex items-center gap-2">
-                  <svg className="w-4 h-4 text-[#00d4aa]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                  </svg> {cert.issuer}
-                </span>
-                <h3 className="text-headline-md text-base text-on-surface flex-grow">{cert.title}</h3>
-                <a className="text-label-mono mt-4 inline-flex items-center gap-1 px-4 py-2 rounded transition-colors hover:bg-[rgba(26,26,36,0.8)]" style={{ background: "rgba(26,26,36,1)", color: cert.color }} href="#">Verify <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg></a>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+          
+          {/* Certifications */}
+          <div>
+            <div className="inline-flex items-center gap-2 mb-12 reveal" style={{ transitionDelay: "0.2s" }}>
+              <span className="w-8 h-px bg-[var(--accent)]"></span>
+              <span className="text-sm font-mono tracking-widest text-[var(--accent)] uppercase">Certifications</span>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal" style={{ transitionDelay: "0.3s" }}>
+              {certifications.map((cert) => (
+                <div key={cert.id} className="p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--card)] hover:border-[var(--accent)] transition-colors group">
+                  <div className="w-10 h-10 rounded bg-[var(--accent-soft)] flex items-center justify-center mb-4 text-[var(--accent)] group-hover:scale-110 transition-transform">
+                    <i className="fa-solid fa-award"></i>
+                  </div>
+                  <div className="cert-info">
+                    <div className="font-bold font-sora text-sm mb-1">{cert.title}</div>
+                    <div className="font-mono text-xs text-[var(--muted)]">{cert.issuer} &middot; {cert.year}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        
-        <p className="text-center text-label-caps text-text-muted mt-4">
-          Showing {filteredCerts.length} of {certifications.length} certifications
-        </p>
       </div>
     </section>
   );

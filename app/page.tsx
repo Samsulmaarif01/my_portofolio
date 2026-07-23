@@ -20,8 +20,6 @@ export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     // Typing Animation - Loop every 5 seconds
@@ -67,7 +65,6 @@ export default function Home() {
     const initEffects = () => {
       // Scroll Spy - Active navbar link
       const navLinks = document.querySelectorAll('.nav-link');
-      const sections = document.querySelectorAll('#about, #skills, #projects, #experience, #certifications, #contact');
       const sectionOrder = ['about', 'skills', 'projects', 'experience', 'certifications', 'contact'];
 
       const updateActiveNav = () => {
@@ -109,16 +106,19 @@ export default function Home() {
         (item as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
       });
 
-      // Enhanced reveal observer with lazy loading
+      // Enhanced reveal observer with bidirectional scroll animations
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('active');
-            revealObserver.unobserve(entry.target);
             const children = entry.target.querySelectorAll('.stagger-item');
             children.forEach((child, i) => {
               setTimeout(() => child.classList.add('visible'), i * 150);
             });
+          } else {
+            entry.target.classList.remove('active');
+            const children = entry.target.querySelectorAll('.stagger-item');
+            children.forEach(child => child.classList.remove('visible'));
           }
         });
       }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
@@ -243,7 +243,7 @@ export default function Home() {
     <>
       <LoadingScreen isLoaded={isLoaded} />
 
-      <div className={`page-content ${isLoaded ? 'loaded' : ''}`}>
+      <div className={`transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <Navbar 
           isDarkMode={isDarkMode}
           isScrolled={isScrolled}
@@ -263,10 +263,6 @@ export default function Home() {
           
           <Certifications 
             isDarkMode={isDarkMode}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-            isDropdownOpen={isDropdownOpen}
-            setIsDropdownOpen={setIsDropdownOpen}
           />
           
           <Contact />
