@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from "react";
 import data from "../data.json";
+import { useLang, type Lang } from "../i18n";
 import { SunIcon, MoonIcon } from "./icons";
 
 const LINKS = [
-  { id: "work", label: "Work" },
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "contact", label: "Contact" },
-];
+  { id: "work", key: "nav.work" },
+  { id: "about", key: "nav.about" },
+  { id: "experience", key: "nav.experience" },
+  { id: "contact", key: "nav.contact" },
+] as const;
 
 function ThemeToggle({ className }: { className?: string }) {
   const toggle = () => {
@@ -33,8 +34,33 @@ function ThemeToggle({ className }: { className?: string }) {
   );
 }
 
+function LangToggle() {
+  const { lang, setLang } = useLang();
+  return (
+    <div
+      role="group"
+      aria-label="Language / Bahasa"
+      className="flex border border-line font-mono text-[10px] uppercase tracking-widest"
+    >
+      {(["en", "id"] as const).map((code) => (
+        <button
+          key={code}
+          onClick={() => setLang(code as Lang)}
+          aria-pressed={lang === code}
+          className={`w-9 h-9 flex items-center justify-center transition-colors ${
+            lang === code ? "bg-accent text-white" : "text-mut hover:text-fg"
+          }`}
+        >
+          {code}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { t } = useLang();
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -53,7 +79,7 @@ export default function Navbar() {
 
           <nav className="hidden md:flex items-center gap-7 font-mono text-xs uppercase tracking-[0.14em]">
             {LINKS.map((l) => (
-              <a key={l.id} href={`#${l.id}`} className="nav-link">{l.label}</a>
+              <a key={l.id} href={`#${l.id}`} className="nav-link">{t(l.key)}</a>
             ))}
           </nav>
 
@@ -61,8 +87,9 @@ export default function Navbar() {
             {/* Availability indicator */}
             <span className="hidden lg:inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-mut mr-1">
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              Open to work
+              {t("nav.available")}
             </span>
+            <LangToggle />
             <ThemeToggle />
             <button
               className={`burger md:hidden w-9 h-9 flex flex-col items-end justify-center gap-[5px] ${open ? "open" : ""}`}
@@ -95,7 +122,7 @@ export default function Navbar() {
                 style={{ transitionDelay: open ? `${80 + i * 50}ms` : "0ms" }}
               >
                 <span className="font-display text-3xl font-medium tracking-tight group-hover:text-accent transition-colors">
-                  {l.label}
+                  {t(l.key)}
                 </span>
                 <span className="font-mono text-xs text-mut">0{i + 1}</span>
               </a>
@@ -105,7 +132,7 @@ export default function Navbar() {
           <div className="mt-auto font-mono text-xs text-mut space-y-2">
             <p className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              Open to freelance &amp; collaboration
+              {t("hero.strip_available")}
             </p>
             <p>{data.profile.location} — 6.34°S 106.72°E</p>
           </div>

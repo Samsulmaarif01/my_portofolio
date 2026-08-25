@@ -1,8 +1,12 @@
+"use client";
+
 import data from "../data.json";
+import { useLang, pick } from "../i18n";
 
 export default function Experience() {
   const work = data.experience;
   const education = data.education;
+  const { t, lang } = useLang();
 
   /* Group certifications by year for a compact, scannable list */
   const certYears = [...new Set(data.certifications.map((c) => c.year))].sort((a, b) => Number(b) - Number(a));
@@ -11,8 +15,8 @@ export default function Experience() {
     <section id="experience" className="relative z-10 band pt-24 md:pt-32 pb-20 md:pb-28 border-y border-line">
       <div className="page-frame">
         <header className="reveal border-t border-line pt-5 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-mut">
-          <span><span className="text-accent">03</span> / Experience</span>
-          <span className="hidden sm:inline">2021 → present</span>
+          <span><span className="text-accent">03</span> / {t("exp.header")}</span>
+          <span className="hidden sm:inline">{t("exp.range")}</span>
         </header>
 
         {/* Work timeline */}
@@ -26,7 +30,7 @@ export default function Experience() {
                 <p className="mt-0.5 text-sm text-soft">{e.title}</p>
               </div>
               <div className="md:col-span-6 mt-1.5 md:mt-0">
-                <p className="text-soft leading-relaxed text-[15px] max-w-xl">{e.description}</p>
+                <p className="text-soft leading-relaxed text-[15px] max-w-xl">{pick(lang, e.description, e.description_en)}</p>
               </div>
             </article>
           ))}
@@ -35,14 +39,14 @@ export default function Experience() {
         {/* Education + certifications */}
         <div className="mt-14 md:mt-16 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 pb-2">
           <div className="lg:col-span-5 reveal">
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-mut mb-4">Education</h3>
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-mut mb-4">{t("exp.education")}</h3>
             {education.map((ed) => (
               <div key={ed.title} className="border-t border-line py-3.5 last:border-b flex items-baseline justify-between gap-4">
                 <div>
                   <p className="font-medium">{ed.title}</p>
-                  <p className="text-sm text-mut">{ed.subtitle}</p>
+                  <p className="text-sm text-mut">{pick(lang, ed.subtitle, ed.subtitle_en)}</p>
                   {ed.description && (
-                    <p className="mt-1 text-[13px] text-mut/90 leading-snug max-w-sm">{ed.description}</p>
+                    <p className="mt-1 text-[13px] text-mut/90 leading-snug max-w-sm">{pick(lang, ed.description, ed.description_en)}</p>
                   )}
                 </div>
                 <p className="font-mono text-[11px] text-mut shrink-0">{ed.year}</p>
@@ -51,7 +55,7 @@ export default function Experience() {
           </div>
 
           <div className="lg:col-span-6 lg:col-start-7 reveal" style={{ "--reveal-delay": "90ms" } as React.CSSProperties}>
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-mut mb-4">Certifications &amp; courses</h3>
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-mut mb-4">{t("exp.certs")}</h3>
             {certYears.map((year) => {
               const certs = data.certifications.filter((c) => c.year === year);
               return (

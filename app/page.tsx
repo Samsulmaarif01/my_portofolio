@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { LangProvider } from "./i18n";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Work from "./components/Work";
@@ -58,7 +59,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <LangProvider>
       <div className="page-rails" aria-hidden="true" />
       <Navbar />
       <main>
@@ -70,6 +71,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-    </>
+    </LangProvider>
   );
 }

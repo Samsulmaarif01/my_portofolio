@@ -108,6 +108,22 @@ export default function RootLayout({
             `
           }}
         />
+        <script
+          id="lang-initializer"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('lang');
+                  var lang = (saved === 'id' || saved === 'en')
+                    ? saved
+                    : ((navigator.language || 'en').toLowerCase().indexOf('id') === 0 ? 'id' : 'en');
+                  document.documentElement.lang = lang;
+                } catch (e) {}
+              })();
+            `
+          }}
+        />
         <meta name="theme-color" content="#131211" media="(prefers-color-scheme: dark)" />
         <meta name="theme-color" content="#f0ede6" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="/favicon.ico" sizes="any" />

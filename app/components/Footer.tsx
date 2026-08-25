@@ -1,7 +1,11 @@
+"use client";
+
 import data from "../data.json";
+import { useLang } from "../i18n";
 import { GithubMark, LinkedinMark } from "./icons";
 
 export default function Footer() {
+  const { t } = useLang();
   return (
     <footer className="relative z-10 border-t border-line bg-bg">
       <div className="page-frame py-7 flex flex-col md:flex-row md:items-center justify-between gap-5">
@@ -21,10 +25,10 @@ export default function Footer() {
             <LinkedinMark className="w-[18px] h-[18px]" />
           </a>
           <a href={`mailto:${data.profile.email}`} className="font-mono text-[11px] uppercase tracking-[0.14em] text-mut hover:text-fg transition-colors">
-            Email
+            {t("footer.email")}
           </a>
           <a href="#top" className="font-mono text-[11px] uppercase tracking-[0.14em] text-mut hover:text-accent transition-colors">
-            Top ↑
+            {t("footer.top")}
           </a>
         </div>
       </div>

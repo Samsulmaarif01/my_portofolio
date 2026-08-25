@@ -1,4 +1,5 @@
 import data from "../data.json";
+import { useLang, pick } from "../i18n";
 import { ArrowUpRight } from "./icons";
 
 type Project = (typeof data.projects)[number];
@@ -405,6 +406,10 @@ function Entry({ project, index }: { project: Project; index: number }) {
   const no = String(index + 1).padStart(2, "0");
   const flip = index % 2 === 1; // odd projects: info left / image right
   const kind = KIND_BY_ID[project.id];
+  const { t, lang } = useLang();
+  const statusLabel = project.status === "Live" ? t("work.status_live") : t("work.status_completed");
+  const platform = PLATFORM_LABEL[kind];
+  const description = pick(lang, project.description, project.description_en);
 
   const figure = (
     <figure className={`lg:col-span-7 ${flip ? "lg:order-2" : ""}`}>
@@ -422,8 +427,8 @@ function Entry({ project, index }: { project: Project; index: number }) {
         </a>
       </div>
       <figcaption className="mt-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-mut">
-        <span>{PLATFORM_LABEL[kind]}</span>
-        <span className={project.status === "Live" ? "text-accent" : ""}>{project.status}</span>
+        <span>{platform}</span>
+        <span className={project.status === "Live" ? "text-accent" : ""}>{statusLabel}</span>
       </figcaption>
     </figure>
   );
@@ -445,19 +450,21 @@ function Entry({ project, index }: { project: Project; index: number }) {
         </h3>
       </div>
 
-      <p className="relative z-10 mt-4 text-soft leading-relaxed text-[15px]">{project.description}</p>
+      <p className="relative z-10 mt-4 text-soft leading-relaxed text-[15px]">
+        {description}
+      </p>
 
       <p className="relative z-10 mt-4 font-mono text-[11px] uppercase tracking-[0.13em]">
-        <span className="text-mut">Stack — </span>
+        <span className="text-mut">{t("work.stack_label")} — </span>
         <span className="text-fg/80">{project.tags.join(" · ")}</span>
       </p>
 
       <div className="relative z-10 mt-6">
-        <MetaRow label="Status" value={project.status} />
+        <MetaRow label="Status" value={statusLabel} />
         <div className="border-t border-line pt-3 mt-1 flex items-center gap-5 font-mono text-[11px] uppercase tracking-[0.13em]">
           {project.demo && (
             <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-fg transition-colors inline-flex items-center gap-1.5">
-              View live <ArrowUpRight className="w-3 h-3" />
+              {t("work.view_live")} <ArrowUpRight className="w-3 h-3" />
             </a>
           )}
           {project.github && (
@@ -483,16 +490,17 @@ function Entry({ project, index }: { project: Project; index: number }) {
 /* ------------------------------------------------------------------ */
 
 export default function Work() {
+  const { t } = useLang();
   return (
     <section id="work" className="relative z-10 pt-24 md:pt-32">
       <div className="page-frame">
         <header className="reveal border-t border-line pt-5 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-mut">
-          <span><span className="text-accent">01</span> / Selected work</span>
-          <span>{String(data.projects.length).padStart(2, "0")} projects</span>
+          <span><span className="text-accent">01</span> / {t("work.header")}</span>
+          <span>{String(data.projects.length).padStart(2, "0")} {t("work.count")}</span>
         </header>
 
         <h2 className="reveal mt-8 md:mt-10 mb-12 md:mb-16 font-display font-semibold tracking-[-0.02em] leading-none text-[clamp(2rem,4.5vw,3.25rem)]">
-          Things I&apos;ve built<span className="text-accent">.</span>
+          {t("work.heading")}
         </h2>
 
         <div className="space-y-20 md:space-y-28 pb-4">

@@ -1,17 +1,21 @@
+"use client";
+
 import data from "../data.json";
+import { useLang } from "../i18n";
 
 export default function Capabilities() {
+  const { t } = useLang();
   return (
     <section id="stack" className="relative z-10 pt-24 md:pt-32 pb-20 md:pb-24">
       <div className="page-frame">
         <header className="reveal border-t border-line pt-5 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-mut">
-          <span><span className="text-accent">04</span> / Technical capabilities</span>
+          <span><span className="text-accent">04</span> / {t("cap.header")}</span>
           <span className="hidden sm:inline">spec v{new Date().getFullYear()}</span>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-8 mt-8 md:mt-10">
           <h2 className="reveal lg:col-span-4 font-display font-semibold tracking-[-0.02em] leading-tight text-[clamp(1.7rem,3vw,2.4rem)]">
-            The toolbox<span className="text-accent">.</span>
+            {t("cap.heading")}
           </h2>
 
           {/* Specification list */}
