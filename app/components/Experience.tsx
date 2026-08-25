@@ -1,39 +1,73 @@
 import data from "../data.json";
 
 export default function Experience() {
-  const experiences = data.experience.filter(e => e.type === "work");
+  const work = data.experience;
+  const education = data.education;
+
+  /* Group certifications by year for a compact, scannable list */
+  const certYears = [...new Set(data.certifications.map((c) => c.year))].sort((a, b) => Number(b) - Number(a));
 
   return (
-    <section id="experience" className="py-24 relative z-10 bg-[var(--bg-2)] border-y border-[var(--border-strong)]">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12">
-        <div className="inline-flex items-center gap-2 mb-16 reveal">
-          <span className="w-8 h-px bg-[var(--accent)]"></span>
-          <span className="text-sm font-mono tracking-widest text-[var(--accent)] uppercase">Career Path</span>
+    <section id="experience" className="relative z-10 band pt-24 md:pt-32 pb-20 md:pb-28 border-y border-line">
+      <div className="page-frame">
+        <header className="reveal border-t border-line pt-5 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-mut">
+          <span><span className="text-accent">03</span> / Experience</span>
+          <span className="hidden sm:inline">2021 → present</span>
+        </header>
+
+        {/* Work timeline */}
+        <div className="mt-8 md:mt-10">
+          {work.map((e) => (
+            <article key={e.year} className="reveal grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-2 border-t border-line py-7 last:border-b relative">
+              <span className="hidden md:block absolute left-0 top-9 w-[5px] h-[5px] bg-accent -translate-x-[calc(50%+3px)]" aria-hidden="true" />
+              <p className="md:col-span-2 font-mono text-sm text-accent">{e.year}</p>
+              <div className="md:col-span-4">
+                <h3 className="font-display text-lg md:text-xl font-semibold tracking-tight">{e.subtitle}</h3>
+                <p className="mt-0.5 text-sm text-soft">{e.title}</p>
+              </div>
+              <div className="md:col-span-6 mt-1.5 md:mt-0">
+                <p className="text-soft leading-relaxed text-[15px] max-w-xl">{e.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
-          <div className="md:col-span-4 reveal">
-            <h2 className="text-4xl md:text-5xl font-bold font-sora sticky top-32">
-              Work <br/>Experience
-            </h2>
-          </div>
-          
-          <div className="md:col-span-8">
-            <div className="relative border-l border-[var(--border-strong)] pl-8 md:pl-12 space-y-16">
-              {experiences.map((exp, index) => (
-                <div key={index} className="relative reveal" style={{ transitionDelay: `${index * 0.1}s` }}>
-                  <div className="absolute -left-[37px] md:-left-[53px] top-1 w-4 h-4 rounded-full bg-[var(--bg)] border-2 border-[var(--accent)] z-10 shadow-[0_0_10px_rgba(255,184,0,0.5)]"></div>
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                    <h3 className="text-2xl font-bold font-sora">{exp.subtitle}</h3>
-                    <span className="text-[var(--accent)] font-mono text-sm">{exp.year}</span>
-                  </div>
-                  <div className="text-[var(--fg)] font-medium mb-4">{exp.title}</div>
-                  <p className="text-[var(--muted)] font-manrope leading-relaxed">
-                    {exp.description}
-                  </p>
+
+        {/* Education + certifications */}
+        <div className="mt-14 md:mt-16 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 pb-2">
+          <div className="lg:col-span-5 reveal">
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-mut mb-4">Education</h3>
+            {education.map((ed) => (
+              <div key={ed.title} className="border-t border-line py-3.5 last:border-b flex items-baseline justify-between gap-4">
+                <div>
+                  <p className="font-medium">{ed.title}</p>
+                  <p className="text-sm text-mut">{ed.subtitle}</p>
+                  {ed.description && (
+                    <p className="mt-1 text-[13px] text-mut/90 leading-snug max-w-sm">{ed.description}</p>
+                  )}
                 </div>
-              ))}
-            </div>
+                <p className="font-mono text-[11px] text-mut shrink-0">{ed.year}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="lg:col-span-6 lg:col-start-7 reveal" style={{ "--reveal-delay": "90ms" } as React.CSSProperties}>
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-mut mb-4">Certifications &amp; courses</h3>
+            {certYears.map((year) => {
+              const certs = data.certifications.filter((c) => c.year === year);
+              return (
+                <div key={year} className="border-t border-line py-3 last:border-b flex gap-5">
+                  <p className="font-mono text-[11px] text-accent shrink-0 pt-0.5 w-10">{year}</p>
+                  <ul className="space-y-1">
+                    {certs.map((c) => (
+                      <li key={c.title} className="text-sm text-fg/85 leading-snug">
+                        {c.title}
+                        <span className="text-mut"> · {c.issuer}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

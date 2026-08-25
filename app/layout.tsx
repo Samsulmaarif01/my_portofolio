@@ -1,23 +1,27 @@
 import type { Metadata } from 'next';
-import { JetBrains_Mono, Manrope, Sora } from 'next/font/google';
+import { Inter_Tight, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
-const jetbrainsMono = JetBrains_Mono({ 
+const interTight = Inter_Tight({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
-  variable: '--font-jetbrains-mono'
+  variable: '--font-inter-tight',
+  display: 'swap',
 });
 
-const manrope = Manrope({
+const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-manrope'
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument',
+  display: 'swap',
 });
 
-const sora = Sora({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['200', '300', '400', '600', '700', '800'],
-  variable: '--font-sora'
+  weight: ['400', '500'],
+  variable: '--font-jetbrains',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -104,16 +108,11 @@ export default function RootLayout({
             `
           }}
         />
-        <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
-        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="theme-color" content="#131211" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#f0ede6" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -136,7 +135,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${jetbrainsMono.variable} ${manrope.variable} ${sora.variable} bg-bg text-fg font-sans antialiased selection:bg-accent selection:text-black`}>
+      <body className={`${interTight.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} bg-bg text-fg font-body antialiased`}>
         {children}
       </body>
     </html>

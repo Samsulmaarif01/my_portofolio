@@ -1,108 +1,113 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import data from "../data.json";
+import { SunIcon, MoonIcon } from "./icons";
 
-interface NavbarProps {
-  isDarkMode: boolean;
-  isScrolled: boolean;
-  isMobileMenuOpen: boolean;
-  toggleTheme: () => void;
-  toggleMobileMenu: () => void;
-  closeMobileMenu: () => void;
-  handleMobileNavClick: (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => void;
+const LINKS = [
+  { id: "work", label: "Work" },
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "contact", label: "Contact" },
+];
+
+function ThemeToggle({ className }: { className?: string }) {
+  const toggle = () => {
+    const el = document.documentElement;
+    const isLight = el.classList.contains("light");
+    el.classList.toggle("light", !isLight);
+    el.classList.toggle("dark", isLight);
+    try {
+      localStorage.setItem("theme", isLight ? "dark" : "light");
+    } catch {}
+  };
+  return (
+    <button
+      onClick={toggle}
+      aria-label="Toggle color theme"
+      className={`theme-toggle w-9 h-9 flex items-center justify-center border border-line hover:border-line-2 text-soft hover:text-fg transition-colors ${className ?? ""}`}
+    >
+      <SunIcon className="when-dark w-4 h-4" />
+      <MoonIcon className="when-light w-4 h-4" />
+    </button>
+  );
 }
 
-export default function Navbar({ 
-  isDarkMode, 
-  isScrolled, 
-  isMobileMenuOpen, 
-  toggleTheme, 
-  toggleMobileMenu,
-  closeMobileMenu,
-  handleMobileNavClick 
- }: NavbarProps) {
-  const name = data.profile.name.split(' ')[0] || 'Samsul';
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 backdrop-blur-md bg-[var(--bg)]/80 border-b ${isScrolled ? 'border-[var(--border)]' : 'border-transparent'}`}
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center">
-          <a href="#hero-section" className="font-sora font-bold text-xl tracking-tight text-[var(--fg)]">
-            {name}<span className="text-[var(--accent)]">.</span>
+      <header className="fixed top-0 inset-x-0 z-50 bg-bg/85 backdrop-blur-sm border-b border-line">
+        <div className="page-frame h-16 flex items-center justify-between gap-6">
+          <a href="#top" className="font-display font-semibold tracking-tight text-[15px]">
+            SAMSUL<span className="text-accent">.</span>
           </a>
-          
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            <div className="flex gap-6 font-mono text-sm">
-              <a href="#about" className="nav-link text-[var(--muted)] hover:text-[var(--fg)] transition-colors">About</a>
-              <a href="#skills" className="nav-link text-[var(--muted)] hover:text-[var(--fg)] transition-colors">Skills</a>
-              <a href="#projects" className="nav-link text-[var(--muted)] hover:text-[var(--fg)] transition-colors">Projects</a>
-              <a href="#experience" className="nav-link text-[var(--muted)] hover:text-[var(--fg)] transition-colors">Experience</a>
-            </div>
-            
-            <div className="flex items-center gap-4 border-l border-[var(--border-strong)] pl-8">
-              <button onClick={toggleTheme} className="w-10 h-10 rounded-full bg-[var(--bg-2)] hover:bg-[var(--bg-3)] border border-[var(--border)] flex items-center justify-center transition-colors text-[var(--fg)]" aria-label="Toggle Theme">
-                <i className={`fa-solid ${isDarkMode ? 'fa-sun' : 'fa-moon'}`}></i>
-              </button>
-              <a href="#contact" className="px-6 py-2.5 bg-[var(--fg)] text-[var(--bg)] font-semibold rounded hover:bg-[var(--accent)] transition-colors">
-                Let's Talk
-              </a>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-2 md:hidden">
-            <button onClick={toggleTheme} className="w-10 h-10 rounded-full bg-[var(--bg-2)] hover:bg-[var(--bg-3)] border border-[var(--border)] flex items-center justify-center transition-colors text-[var(--fg)]" aria-label="Toggle Theme">
-              <i className={`fa-solid ${isDarkMode ? 'fa-sun' : 'fa-moon'}`}></i>
-            </button>
+
+          <nav className="hidden md:flex items-center gap-7 font-mono text-xs uppercase tracking-[0.14em]">
+            {LINKS.map((l) => (
+              <a key={l.id} href={`#${l.id}`} className="nav-link">{l.label}</a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            {/* Availability indicator */}
+            <span className="hidden lg:inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-mut mr-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              Open to work
+            </span>
+            <ThemeToggle />
             <button
-              onClick={toggleMobileMenu}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--fg)] hover:bg-[var(--bg-2)] transition-colors focus:outline-none"
-              aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
+              className={`burger md:hidden w-9 h-9 flex flex-col items-end justify-center gap-[5px] ${open ? "open" : ""}`}
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              onClick={() => setOpen(!open)}
             >
-              <span className="material-symbols-outlined">
-                {isMobileMenuOpen ? 'close' : 'menu'}
-              </span>
+              <span />
+              <span />
             </button>
           </div>
         </div>
-      </nav>
+      </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile menu */}
       <div
-        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-        onClick={closeMobileMenu}
-        aria-hidden="true"
-      />
-
-      {/* Mobile Menu Drawer */}
-      <div
-        id="mobile-menu"
-        className={`fixed top-0 right-0 z-50 w-72 h-full md:hidden transition-transform duration-300 ease-out bg-[var(--bg)] border-l border-[var(--border-strong)] ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Mobile navigation menu"
+        className={`fixed inset-0 z-40 bg-bg/97 backdrop-blur-sm md:hidden transition-all duration-300 ${
+          open ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+        aria-hidden={!open}
       >
-        <div className="flex flex-col h-full pt-20 px-6">
-          <div className="flex flex-col gap-2" role="menu">
-            <a onClick={(e) => handleMobileNavClick(e, 'about')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#about" role="menuitem">About</a>
-            <a onClick={(e) => handleMobileNavClick(e, 'skills')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#skills" role="menuitem">Skills</a>
-            <a onClick={(e) => handleMobileNavClick(e, 'projects')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#projects" role="menuitem">Projects</a>
-            <a onClick={(e) => handleMobileNavClick(e, 'experience')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#experience" role="menuitem">Experience</a>
-            <a onClick={(e) => handleMobileNavClick(e, 'certifications')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#certifications" role="menuitem">Certifications</a>
-            <a onClick={(e) => handleMobileNavClick(e, 'contact')} className="text-sm font-mono py-4 px-4 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg-2)] rounded-lg transition-colors" href="#contact" role="menuitem">Contact</a>
-          </div>
-          
-          <div className="mt-auto pb-8">
-            <div className="flex justify-center gap-6 pt-6 border-t border-[var(--border-strong)]">
-              {data.profile.github && <a href={data.profile.github} target="_blank" rel="noopener noreferrer" className="text-[var(--muted)] hover:text-[var(--fg)] transition-colors" aria-label="GitHub"><i className="fa-brands fa-github text-2xl"></i></a>}
-              {data.profile.linkedin && <a href={data.profile.linkedin} target="_blank" rel="noopener noreferrer" className="text-[var(--muted)] hover:text-[var(--fg)] transition-colors" aria-label="LinkedIn"><i className="fa-brands fa-linkedin text-2xl"></i></a>}
-            </div>
+        <div className="page-frame pt-24 pb-8 h-full flex flex-col">
+          <nav className="flex flex-col">
+            {LINKS.map((l, i) => (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                onClick={() => setOpen(false)}
+                className={`group flex items-baseline justify-between py-5 border-b border-line transition-all duration-500 ${open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
+                style={{ transitionDelay: open ? `${80 + i * 50}ms` : "0ms" }}
+              >
+                <span className="font-display text-3xl font-medium tracking-tight group-hover:text-accent transition-colors">
+                  {l.label}
+                </span>
+                <span className="font-mono text-xs text-mut">0{i + 1}</span>
+              </a>
+            ))}
+          </nav>
+
+          <div className="mt-auto font-mono text-xs text-mut space-y-2">
+            <p className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              Open to freelance &amp; collaboration
+            </p>
+            <p>{data.profile.location} — 6.34°S 106.72°E</p>
           </div>
         </div>
       </div>
